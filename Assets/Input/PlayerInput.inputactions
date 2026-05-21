@@ -113,6 +113,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Little_Big",
+            "id": "6c3394ef-ea0c-4bea-85f4-02d4631cdef8",
+            "actions": [
+                {
+                    "name": "ScaleToggle",
+                    "type": "Button",
+                    "id": "77c68097-a32c-4c0a-ba41-87253d828f3d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "290092bd-24f1-4274-9bd3-35a2b9529d9e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScaleToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

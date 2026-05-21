@@ -199,6 +199,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Little_Big"",
+            ""id"": ""6c3394ef-ea0c-4bea-85f4-02d4631cdef8"",
+            ""actions"": [
+                {
+                    ""name"": ""ScaleToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""77c68097-a32c-4c0a-ba41-87253d828f3d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""290092bd-24f1-4274-9bd3-35a2b9529d9e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ScaleToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -208,11 +236,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnFoot_Jump = m_OnFoot.FindAction("Jump", throwIfNotFound: true);
         m_OnFoot_Movement = m_OnFoot.FindAction("Movement", throwIfNotFound: true);
         m_OnFoot_Look = m_OnFoot.FindAction("Look", throwIfNotFound: true);
+        // Little_Big
+        m_Little_Big = asset.FindActionMap("Little_Big", throwIfNotFound: true);
+        m_Little_Big_ScaleToggle = m_Little_Big.FindAction("ScaleToggle", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
     {
         UnityEngine.Debug.Assert(!m_OnFoot.enabled, "This will cause a leak and performance issues, PlayerInput.OnFoot.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Little_Big.enabled, "This will cause a leak and performance issues, PlayerInput.Little_Big.Disable() has not been called.");
     }
 
     /// <summary>
@@ -402,6 +434,102 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="OnFootActions" /> instance referencing this action map.
     /// </summary>
     public OnFootActions @OnFoot => new OnFootActions(this);
+
+    // Little_Big
+    private readonly InputActionMap m_Little_Big;
+    private List<ILittle_BigActions> m_Little_BigActionsCallbackInterfaces = new List<ILittle_BigActions>();
+    private readonly InputAction m_Little_Big_ScaleToggle;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Little_Big".
+    /// </summary>
+    public struct Little_BigActions
+    {
+        private @PlayerInput m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public Little_BigActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Little_Big/ScaleToggle".
+        /// </summary>
+        public InputAction @ScaleToggle => m_Wrapper.m_Little_Big_ScaleToggle;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Little_Big; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="Little_BigActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(Little_BigActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="Little_BigActions" />
+        public void AddCallbacks(ILittle_BigActions instance)
+        {
+            if (instance == null || m_Wrapper.m_Little_BigActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_Little_BigActionsCallbackInterfaces.Add(instance);
+            @ScaleToggle.started += instance.OnScaleToggle;
+            @ScaleToggle.performed += instance.OnScaleToggle;
+            @ScaleToggle.canceled += instance.OnScaleToggle;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="Little_BigActions" />
+        private void UnregisterCallbacks(ILittle_BigActions instance)
+        {
+            @ScaleToggle.started -= instance.OnScaleToggle;
+            @ScaleToggle.performed -= instance.OnScaleToggle;
+            @ScaleToggle.canceled -= instance.OnScaleToggle;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="Little_BigActions.UnregisterCallbacks(ILittle_BigActions)" />.
+        /// </summary>
+        /// <seealso cref="Little_BigActions.UnregisterCallbacks(ILittle_BigActions)" />
+        public void RemoveCallbacks(ILittle_BigActions instance)
+        {
+            if (m_Wrapper.m_Little_BigActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="Little_BigActions.AddCallbacks(ILittle_BigActions)" />
+        /// <seealso cref="Little_BigActions.RemoveCallbacks(ILittle_BigActions)" />
+        /// <seealso cref="Little_BigActions.UnregisterCallbacks(ILittle_BigActions)" />
+        public void SetCallbacks(ILittle_BigActions instance)
+        {
+            foreach (var item in m_Wrapper.m_Little_BigActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_Little_BigActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="Little_BigActions" /> instance referencing this action map.
+    /// </summary>
+    public Little_BigActions @Little_Big => new Little_BigActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "OnFoot" which allows adding and removing callbacks.
     /// </summary>
@@ -430,5 +558,20 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLook(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Little_Big" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="Little_BigActions.AddCallbacks(ILittle_BigActions)" />
+    /// <seealso cref="Little_BigActions.RemoveCallbacks(ILittle_BigActions)" />
+    public interface ILittle_BigActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "ScaleToggle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnScaleToggle(InputAction.CallbackContext context);
     }
 }
