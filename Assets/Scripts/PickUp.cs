@@ -73,7 +73,7 @@ public class PickUp : MonoBehaviour
 
         if(player.gun != null)
         {
-            Destroy(player.gun.gameObject);
+            player.OnDrop();
         }
 
         GameObject newWeapon = Instantiate(weaponePrefab,player.gunHolder);
