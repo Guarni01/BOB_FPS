@@ -19,6 +19,7 @@ public class PlayerLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ReadMouseInput();
         HandleMouseLook();
     }
     public void OnLook(InputValue value)
@@ -26,8 +27,23 @@ public class PlayerLook : MonoBehaviour
         lookInput = value.Get<Vector2>();
     }
 
+    void ReadMouseInput()
+    {
+        if (Mouse.current == null)
+        {
+            return;
+        }
+
+        lookInput = Mouse.current.delta.ReadValue();
+    }
+
     void HandleMouseLook()
     {
+        if (cam == null)
+        {
+            return;
+        }
+
         float mouseX = lookInput.x * mouseSense * Time.deltaTime;
         float mouseY = lookInput.y * mouseSense * Time.deltaTime;
 
