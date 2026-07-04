@@ -813,8 +813,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29982806c18c124f84f95acd04822e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  firstLoopObjects: []
-  secondLoopObjects: []
+  level1Loop1Objects: []
+  level1Loop2Objects: []
+  level1Loop3Objects: []
+  level2Objects: []
   finalLevelObjects: []
   movingObjects: []
 --- !u!4 &242961194

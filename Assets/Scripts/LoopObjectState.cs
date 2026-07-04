@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class LoopObjectState : MonoBehaviour
 {
-    public Transform firstLoopTransform;
-    public Transform secondLoopTransform;
+    public Transform level1Loop1Transform;
+    public Transform level1Loop2Transform;
+    public Transform level1Loop3Transform;
+    public Transform level2Transform;
     public Transform finalLevelTransform;
 
     public void ApplyPhase(GamePhase phase)
@@ -22,14 +24,24 @@ public class LoopObjectState : MonoBehaviour
 
     private Transform GetTargetTransform(GamePhase phase)
     {
-        if (phase == GamePhase.FirstLoop)
+        if (phase == GamePhase.Level1Loop1)
         {
-            return firstLoopTransform;
+            return level1Loop1Transform;
         }
 
-        if (phase == GamePhase.SecondLoop)
+        if (phase == GamePhase.Level1Loop2)
         {
-            return secondLoopTransform;
+            return level1Loop2Transform;
+        }
+
+        if (phase == GamePhase.Level1Loop3)
+        {
+            return level1Loop3Transform;
+        }
+
+        if (phase == GamePhase.Level2)
+        {
+            return level2Transform;
         }
 
         return finalLevelTransform;

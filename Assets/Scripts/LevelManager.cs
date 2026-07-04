@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public GameObject[] firstLoopObjects;
-    public GameObject[] secondLoopObjects;
+    public GameObject[] level1Loop1Objects;
+    public GameObject[] level1Loop2Objects;
+    public GameObject[] level1Loop3Objects;
+    public GameObject[] level2Objects;
     public GameObject[] finalLevelObjects;
     public LoopObjectState[] movingObjects;
 
     public void ApplyPhase(GamePhase phase)
     {
-        SetObjectsActive(firstLoopObjects, phase == GamePhase.FirstLoop);
-        SetObjectsActive(secondLoopObjects, phase == GamePhase.SecondLoop);
+        SetObjectsActive(level1Loop1Objects, phase == GamePhase.Level1Loop1);
+        SetObjectsActive(level1Loop2Objects, phase == GamePhase.Level1Loop2);
+        SetObjectsActive(level1Loop3Objects, phase == GamePhase.Level1Loop3);
+        SetObjectsActive(level2Objects, phase == GamePhase.Level2);
         SetObjectsActive(finalLevelObjects, phase == GamePhase.FinalLevel);
 
         foreach (LoopObjectState movingObject in movingObjects)

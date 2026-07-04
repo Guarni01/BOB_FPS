@@ -2,8 +2,10 @@ using UnityEngine;
 
 public enum GamePhase
 {
-    FirstLoop,
-    SecondLoop,
+    Level1Loop1,
+    Level1Loop2,
+    Level1Loop3,
+    Level2,
     FinalLevel
 }
 
@@ -11,7 +13,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public GamePhase currentPhase = GamePhase.FirstLoop;
+    public GamePhase currentPhase = GamePhase.Level1Loop1;
     public Transform player;
     public RespawnPoint bedRespawnPoint;
     public LevelManager levelManager;
@@ -47,19 +49,32 @@ public class GameManager : MonoBehaviour
 
     public void EnterLoopDoor()
     {
-        if (currentPhase == GamePhase.SecondLoop && hasKey)
+        if (currentPhase == GamePhase.Level1Loop2 && hasKey)
+        {
+            GoToLevel2();
+            return;
+        }
+
+        if (currentPhase == GamePhase.Level2)
         {
             GoToFinalLevel();
             return;
         }
 
-        if (currentPhase == GamePhase.FirstLoop)
+        if (currentPhase == GamePhase.Level1Loop1)
         {
-            currentPhase = GamePhase.SecondLoop;
+            currentPhase = GamePhase.Level1Loop2;
             UpdateLevelState();
         }
 
         RespawnPlayerAtBed();
+    }
+
+    private void GoToLevel2()
+    {
+        currentPhase = GamePhase.Level2;
+        UpdateLevelState();
+        Debug.Log("Level 2 started.");
     }
 
     private void GoToFinalLevel()
