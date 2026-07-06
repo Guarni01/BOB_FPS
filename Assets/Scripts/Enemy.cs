@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 public class Enemy : MonoBehaviour
 {
-    public int healt = 100;
-    public Material hitMat;
+    [FormerlySerializedAs("healt")] public int Health = 100;
+    [FormerlySerializedAs("hitMat")] public Material HitMaterial;
 
     private Rigidbody rb;
     private Renderer rend;
@@ -26,8 +27,8 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.tag == "Damage")
         {
-            healt -= 10;
-            if(healt <= 0)
+            Health -= 10;
+            if(Health <= 0)
             {
                 Die();
             }
@@ -48,7 +49,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Blink()
     {
-        rend.material = hitMat;
+        rend.material = HitMaterial;
         yield return new WaitForSeconds(0.1f);
         rend.material = originalMaterial; 
 

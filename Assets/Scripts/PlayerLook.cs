@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerLook : MonoBehaviour
 {
-    public float mouseSense = 200f;
-    public Transform cam;
+    [FormerlySerializedAs("mouseSense")] public float MouseSense = 200f;
+    [FormerlySerializedAs("cam")] public Transform Cam;
 
     private float xRotation = 0;
     private Vector2 lookInput;
@@ -39,18 +40,18 @@ public class PlayerLook : MonoBehaviour
 
     void HandleMouseLook()
     {
-        if (cam == null)
+        if (Cam == null)
         {
             return;
         }
 
-        float mouseX = lookInput.x * mouseSense * Time.deltaTime;
-        float mouseY = lookInput.y * mouseSense * Time.deltaTime;
+        float mouseX = lookInput.x * MouseSense * Time.deltaTime;
+        float mouseY = lookInput.y * MouseSense * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90, 90);
 
-        cam.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        Cam.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
 

@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Key : MonoBehaviour
 {
-    public string playerTag = "Player";
+    [FormerlySerializedAs("playerTag")] public string PlayerTag = "Player";
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag(playerTag))
+        if (!other.CompareTag(PlayerTag))
         {
             return;
         }

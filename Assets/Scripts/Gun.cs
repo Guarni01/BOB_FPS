@@ -1,19 +1,20 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 public class Gun : MonoBehaviour
 {
-    public float reloadTime = 1f;
-    public float fireRate = 0.15f;
-    public int magSize = 20;
+    [FormerlySerializedAs("reloadTime")] public float ReloadTime = 1f;
+    [FormerlySerializedAs("fireRate")] public float FireRate = 0.15f;
+    [FormerlySerializedAs("magSize")] public int MagSize = 20;
 
-    public GameObject bullet;
-    public Transform bulletSpawnPoint;
-    public GameObject weaponFlash;
-    public GameObject droppedWeapon;
+    [FormerlySerializedAs("bullet")] public GameObject BulletPrefab;
+    [FormerlySerializedAs("bulletSpawnPoint")] public Transform BulletSpawnPoint;
+    [FormerlySerializedAs("weaponFlash")] public GameObject WeaponFlash;
+    [FormerlySerializedAs("droppedWeapon")] public GameObject DroppedWeapon;
 
-    public float recoilDistance = 0.1f;
-    public float recoilSpeed = 15f;
+    [FormerlySerializedAs("recoilDistance")] public float RecoilDistance = 0.1f;
+    [FormerlySerializedAs("recoilSpeed")] public float RecoilSpeed = 15f;
 
     private int currentAmmo;
     private bool isReloading = false;
@@ -29,7 +30,7 @@ public class Gun : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentAmmo = magSize;
+        currentAmmo = MagSize;
         initialRotation = transform.localRotation;
         initialPosition = transform.localPosition;
     }
@@ -44,11 +45,11 @@ public class Gun : MonoBehaviour
             StartCoroutine(Reload());
             return;
         }
-        nextTimeToFire = Time.time + fireRate;
+        nextTimeToFire = Time.time + FireRate;
         currentAmmo --;
 
-        Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        Instantiate(weaponFlash, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        Instantiate(BulletPrefab, BulletSpawnPoint.position, BulletSpawnPoint.rotation);
+        Instantiate(WeaponFlash, BulletSpawnPoint.position, BulletSpawnPoint.rotation);
 
         StopCoroutine(nameof(Recoil));
         StartCoroutine(nameof(Recoil));
@@ -59,7 +60,7 @@ public class Gun : MonoBehaviour
     {
         isReloading = true;
         Quaternion targetRotation = Quaternion.Euler(initialRotation.eulerAngles + reloadRotationOffset);
-        float halfReload = reloadTime/2f;
+        float halfReload = ReloadTime/2f;
         float t = 0f;
         
         while(t < halfReload)
@@ -78,25 +79,25 @@ public class Gun : MonoBehaviour
             yield return null;
         }
 
-        currentAmmo = magSize;
+        currentAmmo = MagSize;
         isReloading = false;
     }
 
     public void TryReload()
     {
         if(isReloading) return;
-        if(currentAmmo == magSize) return;
+        if(currentAmmo == MagSize) return;
         StartCoroutine(Reload());   
     }
 
     private IEnumerator Recoil()
     {
-        Vector3 recoilTarget = initialPosition + new Vector3 (0, 0, recoilDistance);
+        Vector3 recoilTarget = initialPosition + new Vector3 (0, 0, RecoilDistance);
         float t = 0f;
 
         while(t < 1f)
         {
-            t += Time.deltaTime * recoilSpeed;
+            t += Time.deltaTime * RecoilSpeed;
             transform.localPosition = Vector3.Lerp(initialPosition, recoilTarget, t);
             yield return null;
         }
@@ -105,7 +106,7 @@ public class Gun : MonoBehaviour
 
         while(t < 1f)
         {
-            t += Time.deltaTime * recoilSpeed;
+            t += Time.deltaTime * RecoilSpeed;
             transform.localPosition = Vector3.Lerp( recoilTarget,initialPosition, t);
             yield return null;
         }
@@ -115,7 +116,7 @@ public class Gun : MonoBehaviour
 
     public void Drop()
     {
-        Instantiate(droppedWeapon, transform.position, transform.rotation);
+        Instantiate(DroppedWeapon, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 

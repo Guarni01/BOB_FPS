@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum GamePhase
 {
@@ -11,24 +13,28 @@ public enum GamePhase
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager Singleton { get; private set; }
+    public static GameManager Instance => Singleton;
 
-    public GamePhase currentPhase = GamePhase.Level1Loop1;
-    public Transform player;
-    public RespawnPoint bedRespawnPoint;
-    public LevelManager levelManager;
+    [FormerlySerializedAs("currentPhase")] public GamePhase CurrentPhase = GamePhase.Level1Loop1;
+    [FormerlySerializedAs("player")] public Transform Player;
+    [FormerlySerializedAs("bedRespawnPoint")] public RespawnPoint BedRespawnPoint;
+    [FormerlySerializedAs("levelManager")] public LevelManager LevelManager;
 
+    [SerializeField] private float blackScreenDuration = 2f;
     [SerializeField] private bool hasKey;
+    private bool isDoorTransitionRunning;
+    private bool showBlackScreen;
 
     void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Singleton != null && Singleton != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        Instance = this;
+        Singleton = this;
     }
 
     void Start()
@@ -49,69 +55,115 @@ public class GameManager : MonoBehaviour
 
     public void EnterLoopDoor()
     {
-        if (currentPhase == GamePhase.Level1Loop2 && hasKey)
+        if (isDoorTransitionRunning)
+        {
+            return;
+        }
+
+        StartCoroutine(DoorTransition());
+    }
+
+    private IEnumerator DoorTransition()
+    {
+        isDoorTransitionRunning = true;
+        showBlackScreen = true;
+
+        HandleDoorLogic();
+
+        yield return new WaitForSeconds(blackScreenDuration);
+
+        showBlackScreen = false;
+        isDoorTransitionRunning = false;
+    }
+
+    private void HandleDoorLogic()
+    {
+        if ((CurrentPhase == GamePhase.Level1Loop2 || CurrentPhase == GamePhase.Level1Loop3) && hasKey)
         {
             GoToLevel2();
             return;
         }
 
-        if (currentPhase == GamePhase.Level2)
+        if (CurrentPhase == GamePhase.Level2)
         {
             GoToFinalLevel();
             return;
         }
 
-        if (currentPhase == GamePhase.Level1Loop1)
+        if (CurrentPhase == GamePhase.Level1Loop1)
         {
-            currentPhase = GamePhase.Level1Loop2;
+            CurrentPhase = GamePhase.Level1Loop2;
+            UpdateLevelState();
+        }
+        else if (CurrentPhase == GamePhase.Level1Loop2)
+        {
+            CurrentPhase = GamePhase.Level1Loop3;
+            UpdateLevelState();
+        }
+        else if (CurrentPhase == GamePhase.Level1Loop3)
+        {
+            CurrentPhase = GamePhase.Level1Loop1;
             UpdateLevelState();
         }
 
         RespawnPlayerAtBed();
     }
 
+    private void OnGUI()
+    {
+        if (!showBlackScreen)
+        {
+            return;
+        }
+
+        Color previousColor = GUI.color;
+        GUI.color = Color.black;
+        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Texture2D.whiteTexture);
+        GUI.color = previousColor;
+    }
+
     private void GoToLevel2()
     {
-        currentPhase = GamePhase.Level2;
+        CurrentPhase = GamePhase.Level2;
         UpdateLevelState();
         Debug.Log("Level 2 started.");
     }
 
     private void GoToFinalLevel()
     {
-        currentPhase = GamePhase.FinalLevel;
+        CurrentPhase = GamePhase.FinalLevel;
         UpdateLevelState();
         Debug.Log("The loop is broken. Go to the final level.");
     }
 
     private void UpdateLevelState()
     {
-        if (levelManager == null)
+        if (LevelManager == null)
         {
             return;
         }
 
-        levelManager.ApplyPhase(currentPhase);
+        LevelManager.ApplyPhase(CurrentPhase);
     }
 
     private void RespawnPlayerAtBed()
     {
-        if (player == null || bedRespawnPoint == null)
+        if (Player == null || BedRespawnPoint == null)
         {
             Debug.LogWarning("GameManager needs a Player and a Bed Respawn Point.");
             return;
         }
 
-        player.position = bedRespawnPoint.GetSpawnPosition();
-        player.rotation = bedRespawnPoint.GetSpawnRotation();
+        Player.position = BedRespawnPoint.GetSpawnPosition();
+        Player.rotation = BedRespawnPoint.GetSpawnRotation();
 
-        Rigidbody playerRigidbody = player.GetComponent<Rigidbody>();
+        Rigidbody playerRigidbody = Player.GetComponent<Rigidbody>();
         if (playerRigidbody != null)
         {
             playerRigidbody.linearVelocity = Vector3.zero;
             playerRigidbody.angularVelocity = Vector3.zero;
         }
 
-        Debug.Log("Player returned to the bed. Current phase: " + currentPhase);
+        Debug.Log("Player returned to the bed. Current phase: " + CurrentPhase);
     }
 }

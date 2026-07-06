@@ -1,14 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float jumpForce = 5f;
-    public float moveSpeed = 5f;
+    [FormerlySerializedAs("jumpForce")] public float JumpForce = 5f;
+    [FormerlySerializedAs("moveSpeed")] public float MoveSpeed = 5f;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
+    [FormerlySerializedAs("groundCheck")] public Transform GroundCheck;
+    [FormerlySerializedAs("groundDistance")] public float GroundDistance = 0.4f;
+    [FormerlySerializedAs("groundMask")] public LayerMask GroundMask;
 
 
     private Rigidbody rb;
@@ -39,14 +40,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if(isGrounded)
         {
-            rb.AddForce(new Vector3(0,jumpForce,0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(0,JumpForce,0), ForceMode.Impulse);
         }
     }
     
     
     void CheckGround()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position,groundDistance,groundMask);
+        isGrounded = Physics.CheckSphere(GroundCheck.position,GroundDistance,GroundMask);
     }
 
     void OnMovement(InputValue value)
@@ -57,11 +58,10 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 direction = transform.right * moveInput.x + transform.forward * moveInput.y;
         direction.Normalize();
-        rb.linearVelocity = new Vector3(direction.x * moveSpeed, rb.linearVelocity.y, direction.z * moveSpeed);
+        rb.linearVelocity = new Vector3(direction.x * MoveSpeed, rb.linearVelocity.y, direction.z * MoveSpeed);
         
     }
 }
 
   
-
 

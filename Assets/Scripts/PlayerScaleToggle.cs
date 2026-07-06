@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerScaleToggle : MonoBehaviour
 {
-    public float scaleMultiplier = 1f / 3f;
+    [FormerlySerializedAs("scaleMultiplier")] public float ScaleMultiplier = 1f / 3f;
 
     private Vector3 originalScale;
     private bool isScaledDown;
@@ -35,6 +36,6 @@ public class PlayerScaleToggle : MonoBehaviour
     void ToggleScale()
     {
         isScaledDown = !isScaledDown;
-        transform.localScale = isScaledDown ? originalScale * scaleMultiplier : originalScale;
+        transform.localScale = isScaledDown ? originalScale * ScaleMultiplier : originalScale;
     }
 }

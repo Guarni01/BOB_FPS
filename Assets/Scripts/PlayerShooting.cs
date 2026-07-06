@@ -1,11 +1,12 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerShooting : MonoBehaviour
 {
-    public Gun gun;
-    public Transform gunHolder;
+    [FormerlySerializedAs("gun")] public Gun CurrentGun;
+    [FormerlySerializedAs("gunHolder")] public Transform GunHolder;
     private bool isHoldingShoot = false;
 
     void OnShoot()
@@ -20,26 +21,26 @@ public class PlayerShooting : MonoBehaviour
 
     void OnReload()
     {
-        if(gun != null)
+        if(CurrentGun != null)
         {
-            gun.TryReload();
+            CurrentGun.TryReload();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isHoldingShoot && gun != null)
+        if (isHoldingShoot && CurrentGun != null)
         {
-            gun.Shoot();
+            CurrentGun.Shoot();
         }
     }
     public void OnDrop()
     {
-        if(gun != null)
+        if(CurrentGun != null)
         {
-            gun.Drop();
-            gun = null;
+            CurrentGun.Drop();
+            CurrentGun = null;
         }
     }
 }

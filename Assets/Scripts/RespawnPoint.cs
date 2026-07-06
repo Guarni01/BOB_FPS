@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RespawnPoint : MonoBehaviour
 {
-    public Vector3 spawnOffset;
+    [FormerlySerializedAs("spawnOffset")] public Vector3 SpawnOffset;
 
     public Vector3 GetSpawnPosition()
     {
-        return transform.position + spawnOffset;
+        return transform.position + SpawnOffset;
     }
 
     public Quaternion GetSpawnRotation()

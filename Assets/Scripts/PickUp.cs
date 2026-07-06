@@ -1,15 +1,16 @@
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PickUp : MonoBehaviour
 {
-    public Material highlightMaterial;
+    [FormerlySerializedAs("highlightMaterial")] public Material HighlightMaterial;
     private Material[] originalMaterials;
     private  MeshRenderer[] meshRenderers;
 
-    public GameObject weaponePrefab;
-    public float lookRange = 3f;
+    [FormerlySerializedAs("weaponePrefab")] public GameObject WeaponPrefab;
+    [FormerlySerializedAs("lookRange")] public float LookRange = 3f;
 
     private bool isLookedAt = false;
     private Camera playerCam;
@@ -33,7 +34,7 @@ public class PickUp : MonoBehaviour
     void Update()
     {
         Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
-        if(Physics.Raycast(ray, out RaycastHit hit, lookRange))
+        if(Physics.Raycast(ray, out RaycastHit hit, LookRange))
         {
             if(hit.collider.GetComponentInParent<PickUp>() == this)
             {
@@ -55,7 +56,7 @@ public class PickUp : MonoBehaviour
         {
             foreach(MeshRenderer mr in meshRenderers)
             {
-                mr.material = highlightMaterial;
+                mr.material = HighlightMaterial;
             }
         }
         else
@@ -71,16 +72,16 @@ public class PickUp : MonoBehaviour
     {
         if(!isLookedAt) return;
 
-        if(player.gun != null)
+        if(player.CurrentGun != null)
         {
             player.OnDrop();
         }
 
-        GameObject newWeapon = Instantiate(weaponePrefab,player.gunHolder);
+        GameObject newWeapon = Instantiate(WeaponPrefab,player.GunHolder);
         newWeapon.transform.localPosition = Vector3.zero;
         newWeapon.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
 
-        player.gun = newWeapon.GetComponent<Gun>();
+        player.CurrentGun = newWeapon.GetComponent<Gun>();
 
         Destroy(gameObject);
     }
