@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
     [FormerlySerializedAs("level1Loop2Objects")] public GameObject[] Level1Loop2Objects;
     [FormerlySerializedAs("level1Loop3Objects")] public GameObject[] Level1Loop3Objects;
     [FormerlySerializedAs("level2Objects")] public GameObject[] Level2Objects;
+    public GameObject[] Level1UnlockedObjects;
     [FormerlySerializedAs("finalLevelObjects")] public GameObject[] FinalLevelObjects;
     [FormerlySerializedAs("movingObjects")] public LoopObjectState[] MovingObjects;
 
@@ -16,6 +17,7 @@ public class LevelManager : MonoBehaviour
         SetObjectsActive(Level1Loop2Objects, phase == GamePhase.Level1Loop2);
         SetObjectsActive(Level1Loop3Objects, phase == GamePhase.Level1Loop3);
         SetObjectsActive(Level2Objects, phase == GamePhase.Level2);
+        SetObjectsActive(Level1UnlockedObjects, phase == GamePhase.Level1Unlocked);
         SetObjectsActive(FinalLevelObjects, phase == GamePhase.FinalLevel);
 
         foreach (LoopObjectState movingObject in MovingObjects)

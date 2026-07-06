@@ -8,6 +8,7 @@ public enum GamePhase
     Level1Loop2,
     Level1Loop3,
     Level2,
+    Level1Unlocked,
     FinalLevel
 }
 
@@ -63,12 +64,37 @@ public class GameManager : MonoBehaviour
         StartCoroutine(DoorTransition());
     }
 
+    public void ReturnToUnlockedLevel1()
+    {
+        if (isDoorTransitionRunning)
+        {
+            return;
+        }
+
+        StartCoroutine(ReturnToUnlockedLevel1Transition());
+    }
+
     private IEnumerator DoorTransition()
     {
         isDoorTransitionRunning = true;
         showBlackScreen = true;
 
         HandleDoorLogic();
+
+        yield return new WaitForSeconds(blackScreenDuration);
+
+        showBlackScreen = false;
+        isDoorTransitionRunning = false;
+    }
+
+    private IEnumerator ReturnToUnlockedLevel1Transition()
+    {
+        isDoorTransitionRunning = true;
+        showBlackScreen = true;
+
+        CurrentPhase = GamePhase.Level1Unlocked;
+        UpdateLevelState();
+        RespawnPlayerAtBed();
 
         yield return new WaitForSeconds(blackScreenDuration);
 

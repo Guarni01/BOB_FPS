@@ -1057,6 +1057,7 @@ MonoBehaviour:
   - {fileID: 541835488}
   - {fileID: 1063973920}
   - {fileID: 2111799230}
+  Level1UnlockedObjects: []
   FinalLevelObjects: []
   MovingObjects:
   - {fileID: 1656054215}
@@ -3116,6 +3117,7 @@ MonoBehaviour:
   Level1Loop2Transform: {fileID: 2135970359}
   Level1Loop3Transform: {fileID: 467648376}
   Level2Transform: {fileID: 693903144}
+  Level1UnlockedTransform: {fileID: 0}
   FinalLevelTransform: {fileID: 0}
 --- !u!1 &847648396
 GameObject:
@@ -4215,7 +4217,7 @@ Transform:
   m_GameObject: {fileID: 1323717198}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 10.378611, y: 1.00133, z: -2.1587298}
+  m_LocalPosition: {x: 10.378611, y: 0.547, z: -2.1587298}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5122,6 +5124,7 @@ MonoBehaviour:
   Level1Loop2Transform: {fileID: 494429591}
   Level1Loop3Transform: {fileID: 1623480923}
   Level2Transform: {fileID: 109472251}
+  Level1UnlockedTransform: {fileID: 0}
   FinalLevelTransform: {fileID: 0}
 --- !u!1 &1583176185 stripped
 GameObject:
@@ -5299,6 +5302,7 @@ MonoBehaviour:
   Level1Loop2Transform: {fileID: 2005036336}
   Level1Loop3Transform: {fileID: 89582832}
   Level2Transform: {fileID: 762823487}
+  Level1UnlockedTransform: {fileID: 0}
   FinalLevelTransform: {fileID: 0}
 --- !u!4 &1659854828 stripped
 Transform:

@@ -7,6 +7,7 @@ public class LoopObjectState : MonoBehaviour
     [FormerlySerializedAs("level1Loop2Transform")] public Transform Level1Loop2Transform;
     [FormerlySerializedAs("level1Loop3Transform")] public Transform Level1Loop3Transform;
     [FormerlySerializedAs("level2Transform")] public Transform Level2Transform;
+    public Transform Level1UnlockedTransform;
     [FormerlySerializedAs("finalLevelTransform")] public Transform FinalLevelTransform;
 
     public void ApplyPhase(GamePhase phase)
@@ -42,6 +43,11 @@ public class LoopObjectState : MonoBehaviour
         if (phase == GamePhase.Level2)
         {
             return Level2Transform;
+        }
+
+        if (phase == GamePhase.Level1Unlocked)
+        {
+            return Level1UnlockedTransform;
         }
 
         return FinalLevelTransform;
