@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float blackScreenDuration = 2f;
     [SerializeField] private bool hasKey;
+    [SerializeField] private LoopDoor loopDoor;
     private bool isDoorTransitionRunning;
     private bool showBlackScreen;
 
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
         hasKey = true;
         Debug.Log("Key collected.");
     }
+
 
     public void EnterLoopDoor()
     {
