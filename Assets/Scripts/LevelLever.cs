@@ -3,7 +3,6 @@ using UnityEngine;
 public class LevelLever : MonoBehaviour
 {
     public string PlayerTag = "Player";
-    public GameObject RespawnToDisable;
     public GameObject[] ObjectsToHide;
     public GameObject[] ObjectsToShow;
 
@@ -27,11 +26,6 @@ public class LevelLever : MonoBehaviour
     public void ActivateLever()
     {
         isActivated = true;
-
-        if (RespawnToDisable != null)
-        {
-            RespawnToDisable.SetActive(false);
-        }
 
         SetObjectsActive(ObjectsToHide, false);
         SetObjectsActive(ObjectsToShow, true);
