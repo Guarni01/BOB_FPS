@@ -1922,9 +1922,10 @@ MonoBehaviour:
   - {fileID: 919132148593044280}
   - {fileID: 1968058741}
   - {fileID: 484645318}
-  Level1UnlockedObjects: []
-  FinalLevelObjects:
+  Level1UnlockedObjects:
   - {fileID: 1853679624}
+  FinalLevelObjects:
+  - {fileID: 964418857}
   MovingObjects:
   - {fileID: 1573159996}
   - {fileID: 1656054215}
@@ -2289,7 +2290,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 39
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2316,7 +2317,7 @@ Transform:
   m_GameObject: {fileID: 280865652}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.44, z: -0.39999998}
+  m_LocalPosition: {x: 0, y: 1.808, z: -0.053}
   m_LocalScale: {x: 3.4, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5237,7 +5238,7 @@ Transform:
   m_GameObject: {fileID: 952808902}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.002960205, y: -1, z: -0.06024}
+  m_LocalPosition: {x: -0.002960205, y: -0.107, z: -0.06024}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6827,7 +6828,8 @@ MonoBehaviour:
   ObjectsToHide:
   - {fileID: 2039427518}
   - {fileID: 1157805842}
-  ObjectsToShow: []
+  ObjectsToShow:
+  - {fileID: 964418857}
 --- !u!64 &1316959503
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7262,6 +7264,7 @@ GameObject:
   - component: {fileID: 1400063482}
   - component: {fileID: 1400063481}
   - component: {fileID: 1400063488}
+  - component: {fileID: 1400063489}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7351,10 +7354,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.24
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.86, z: 0}
 --- !u!23 &1400063485
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7380,7 +7383,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: cbda244a31cc62a40afe6e94665818d9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7411,7 +7414,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1400063480}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 5196121810030863759, guid: 6637352fc5ac31c41adef1bb54286963, type: 3}
 --- !u!4 &1400063487
 Transform:
   m_ObjectHideFlags: 0
@@ -7421,7 +7424,7 @@ Transform:
   m_GameObject: {fileID: 1400063480}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.14, y: 0.64, z: 0}
+  m_LocalPosition: {x: 9.939, y: 0.402, z: -1.829}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7456,6 +7459,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!95 &1400063489
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400063480}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 6637352fc5ac31c41adef1bb54286963, type: 3}
+  m_Controller: {fileID: 9100000, guid: 3a197a1db0fdbc4428de8f26dbcfa126, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1415557433
 GameObject:
   m_ObjectHideFlags: 0

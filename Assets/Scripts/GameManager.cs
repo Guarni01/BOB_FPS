@@ -154,6 +154,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentPhase = GamePhase.Level2;
         UpdateLevelState();
+        RespawnPlayerAtBed();
         Debug.Log("Level 2 started.");
     }
 
