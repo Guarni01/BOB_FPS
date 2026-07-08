@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     public void GiveKey()
     {
         hasKey = true;
+         NotificationUI.Instance.ShowMessage("Key Collected");
         Debug.Log("Key collected.");
     }
 
@@ -71,7 +72,9 @@ public class GameManager : MonoBehaviour
         if (isDoorTransitionRunning)
         {
             return;
+
         }
+        NotificationUI.Instance.ShowMessage("Good Morning");
 
         StartCoroutine(ReturnToUnlockedLevel1Transition());
     }

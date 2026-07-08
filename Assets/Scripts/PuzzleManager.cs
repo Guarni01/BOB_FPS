@@ -24,6 +24,8 @@ public class PuzzleManager : MonoBehaviour
         }
 
         collectedPieces++;
+        
+        NotificationUI.Instance.ShowMessage( $"Piece {collectedPieces} Collected");
         Debug.Log("Puzzle piece collected: " + collectedPieces + "/" + RequiredPieces);
 
         if (collectedPieces >= RequiredPieces)
