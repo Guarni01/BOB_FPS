@@ -1925,7 +1925,7 @@ MonoBehaviour:
   Level1UnlockedObjects:
   - {fileID: 1853679624}
   FinalLevelObjects:
-  - {fileID: 964418857}
+  - {fileID: 1853679624}
   MovingObjects:
   - {fileID: 1573159996}
   - {fileID: 1656054215}
@@ -6881,7 +6881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9019895c687b68346ad965a4e1e6c1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RespawnPoint
-  SpawnOffset: {x: 0, y: -0.5, z: 0}
+  SpawnOffset: {x: 0, y: 0, z: 0}
 --- !u!4 &1323717200
 Transform:
   m_ObjectHideFlags: 0
@@ -6891,7 +6891,7 @@ Transform:
   m_GameObject: {fileID: 1323717198}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 10.378611, y: 0.547, z: -2.1587298}
+  m_LocalPosition: {x: 10.378611, y: 0.611, z: -2.1587298}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8011,10 +8011,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   CurrentPhase: 0
-  Player: {fileID: 0}
+  Player: {fileID: 1400063487}
   BedRespawnPoint: {fileID: 1323717199}
   LevelManager: {fileID: 242961193}
-  blackScreenDuration: 2
+  blackScreenDuration: 1.5
   hasKey: 0
   loopDoor: {fileID: 1157805843}
 --- !u!4 &1515598822
