@@ -29,7 +29,7 @@ public class LevelLever : MonoBehaviour
 
         SetObjectsActive(ObjectsToHide, false);
         SetObjectsActive(ObjectsToShow, true);
-        NotificationUI.Instance.ShowMessage("Level Activated");
+        NotificationUI.Instance.ShowMessage("Lever Activated");
        
         Debug.Log("Lever activated.");
     }
