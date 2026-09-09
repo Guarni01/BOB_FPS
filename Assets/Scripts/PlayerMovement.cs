@@ -31,13 +31,9 @@ public class PlayerMovement : MonoBehaviour
         CheckGround();
 
         
-        if (moveInput.magnitude > 0.1f)
+        if (PlayerAnimator != null)
         {
-            PlayerAnimator.SetBool("Walking", true);
-        }
-        else
-        {
-            PlayerAnimator.SetBool("Walking", false);
+            PlayerAnimator.SetBool("Walking", moveInput.magnitude > 0.1f);
         }
     }
 
@@ -53,7 +49,10 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
             
             
-            PlayerAnimator.SetTrigger("Jump"); 
+            if (PlayerAnimator != null)
+            {
+                PlayerAnimator.SetTrigger("Jump");
+            }
         }
     }
     

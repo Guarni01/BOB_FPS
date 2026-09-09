@@ -128,7 +128,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 244392110}
-  - component: {fileID: 244392109}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -136,21 +135,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &244392109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244392108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39115ae345877164d8e332541457119d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  currentPhase: 0
-  player: {fileID: 743094277}
-  bedRespawnPoint: {fileID: 1181145025}
 --- !u!4 &244392110
 Transform:
   m_ObjectHideFlags: 0
@@ -667,7 +651,6 @@ GameObject:
   - component: {fileID: 538154921}
   - component: {fileID: 538154920}
   - component: {fileID: 538154919}
-  - component: {fileID: 538154918}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -675,19 +658,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &538154918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 538154917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1278c841fa8dca04291ed8c74c8d6a56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LoopDoor
-  playerTag: Player
 --- !u!136 &538154919
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -801,6 +771,7 @@ GameObject:
   - component: {fileID: 743094278}
   - component: {fileID: 743094279}
   - component: {fileID: 743094280}
+  - component: {fileID: 743094281}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -820,13 +791,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 232162d9dd1e3274b8424e25e3c035aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  jumpForce: 5
-  moveSpeed: 5
-  groundCheck: {fileID: 2014013101}
-  groundDistance: 0.5
-  groundMask:
+  JumpForce: 5
+  MoveSpeed: 5
+  GroundCheck: {fileID: 284676713}
+  GroundDistance: 0.4
+  GroundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
+  PlayerAnimator: {fileID: 0}
 --- !u!114 &743094272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -993,8 +965,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d0ffc0a50825e4b9cfc8a668531060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLook
-  mouseSense: 70
-  cam: {fileID: 330585546}
+  MouseSense: 70
+  Cam: {fileID: 330585546}
 --- !u!114 &743094279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1007,7 +979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9512bf58a00a3b0418152d80ba6fa87c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleMultiplier: 0.33333334
+  ScaleMultiplier: 0.33333334
 --- !u!114 &743094280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1020,8 +992,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8591cdcd8ef891c4f8a9b0aa4a1ae3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
-  gun: {fileID: 0}
-  gunHolder: {fileID: 2146773939}
+  CurrentGun: {fileID: 0}
+  GunHolder: {fileID: 2146773939}
+--- !u!114 &743094281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743094270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9428be323942f7955d463fccdb03d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerFormController
+  smallScaleThreshold: 0.75
+  playerCamera: {fileID: 0}
+  pickupRange: 3
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,7 +1128,6 @@ GameObject:
   - component: {fileID: 1181145022}
   - component: {fileID: 1181145021}
   - component: {fileID: 1181145020}
-  - component: {fileID: 1181145019}
   - component: {fileID: 1181145025}
   m_Layer: 0
   m_Name: Enemy
@@ -1150,20 +1136,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1181145019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1181145018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd4e96498f3a5b3419adfec6a56f159c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  healt: 100
-  hitMat: {fileID: 2100000, guid: c5d61a0028edd2a4883427178e56770b, type: 2}
 --- !u!54 &1181145020
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1297,9 +1269,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1181145018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9019895c687b68346ad965a4e1e6c1ab, type: 3}
+  m_Script: {fileID: 11500000, guid: cd4e96498f3a5b3419adfec6a56f159c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RespawnPoint
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  Health: 100
+  HitMaterial: {fileID: -3963241562183589234, guid: 360d6b2aae7e32a4d8841f8a4435ba1b, type: 3}
 --- !u!1001 &1698308647
 PrefabInstance:
   m_ObjectHideFlags: 0

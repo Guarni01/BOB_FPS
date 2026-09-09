@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/LOOP.unity
-    guid: e7639fe2b0fbf094e972a6267306dce5
+    path: Assets/Scenes/Scene_01.unity
+    guid: 5ea72e91d8c0e064b93d55b6d737e9b7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
